@@ -1,0 +1,115 @@
+<!DOCTYPE doctype html>
+<html lang="en">
+    <head>
+        {% load widget_tweaks %}
+        <!-- Required meta tags -->
+        <meta charset="utf-8"/>
+            <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+                {% load static %}
+                <!-- Bootstrap CSS -->
+                <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet"/>
+                    <link href="{% static 'account.css' %}" rel="stylesheet" type="text/css"/>
+                        <title>
+                            Account login | signup
+                        </title>
+              
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+     
+    </head>
+    <body class="bgimage">
+        <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #fafafa;">
+            <a class="navbar-brand" href="/">
+                <h4>
+                    ImageShow
+                </h4>
+            </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon">
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item ">
+                       
+
+<form action='{% url "Search" %}' method="get">
+                        <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><img src="https://img.icons8.com/ios/20/000000/search--v1.png"/></span>
+  </div>
+   
+  <input type="text" class="form-control" name="query" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+  
+</div>
+</form>
+
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div style="padding-top: 30px;">
+            <div class="card" style="width: 32rem; margin: 0 auto; float: none; ">
+                <div class="card-body">
+                    <div class="navbar_account">
+                        <a href="/user/account">
+                            Sign up
+                        </a>
+                        <a href="/user/account/login">
+                            Login
+                        </a>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+
+
+        {% for message in messages %}
+                        <p style="display: flex;">
+                            {{ message }}
+                        </p>
+                        {% endfor %}
+
+         {% for field in form.visible_fields %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+
+          {% if form.is_bound %}
+          {% if field.errors %}
+          {% render_field field class="form-control is-invalid" %}
+          {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+          {% else %}
+          {% render_field field class="form-control is-valid" %}
+          {% endif %}
+          {% else %}
+          {% render_field field class="form-control" %}
+          {% endif %}
+
+          {% if field.help_text %}
+                            <small class="form-text text-muted">
+                                {{ field.help_text }}
+                            </small>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        <center>
+                            <button class="btn btn-primary" type="submit">
+                                Sign up
+                            </button>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js">
+    </script>
+    <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+    </script>
+    <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+
+    </script>
+    
+</html>

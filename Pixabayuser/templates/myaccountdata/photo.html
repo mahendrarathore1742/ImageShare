@@ -1,0 +1,206 @@
+{% extends "myaccountdata/importable.html" %}
+
+
+{% block body %}
+<!--<img src="{{ object.Images.url }}">-->
+<div style=" margin: 5px;padding: 0;">
+    <div class="row" style="justify-content: center;">
+        <div class="col-8">
+            <img src="{{queryset.Images.url}}">
+                <div class="mt-5">
+                    {% for mt in queryset.tags.all%}
+                    <a class="badge badge-dark" href="{% url 'detail_view' mt.slug %}">
+                        #{{mt}}
+                    </a>
+                    {% endfor %}
+                </div>
+            </img>
+        </div>
+        <center>
+            <div class="col-12">
+                <div class="card" style="width: auto;align-items: baseline;padding: 10px;margin-top: 20px;background-color: #fafafa;">
+                    <div style="display: flex;">
+                        <img src="{{usernamedata.userprofile.Profileimage.url}}" style="float:left;width: 48px;height: 48px;border-radius: 48px;margin: 0 12px 0 0;"/>
+                        <h5 style="margin: 12px;display: block;font-size: 15px;color: #555;">
+                            <a href="/{{usernamedata.username}}" style="display: block;font-size: 15px;color: rgb(85, 85, 85);--darkreader-inline-color: #afaaa0;text-decoration: none;">
+                                {{usernamedata.username}} | {{queryset.Title}}
+                            </a>
+                        </h5>
+                        {%  if  user.is_authenticated %}
+						{% if Data and not request.user ==  usernamedata %}
+                        <a class="btn btn-primary " href="{% url 'follow' usernamedata.username %}" id="follow" role="button" style="height: auto;margin: 10px;border-radius: 30px;width: 95px">
+                            <i class="check">
+                                ✓
+                            </i>
+                            Follow
+                        </a>
+                        {% elif request.user ==  usernamedata %}
+                        <a class="btn btn-primary " href="/user/account/settings/" role="button" style="height: auto;margin: 10px;border-radius: 30px;width: 95px">
+                            Edit
+                        </a>
+                        {% else %}
+                        <a class="btn btn-primary " href="{% url 'follow' usernamedata.username %}" id="follow" role="button" style="height: auto;margin: 10px;border-radius: 30px;width: 95px">
+                            Follow
+                        </a>
+                        {% endif %}
+						
+						{% else %}
+                        <a class="btn btn-primary " href="/user/account/login" role="button" style="height: auto;margin: auto;border-radius: 30px;width: 95px">
+                            Login
+                        </a>
+                        {% endif %}
+                    </div>
+                    <hr style="border: 1px solid #eeeff2;width: 100%;">
+                        <div style="width: 100%;display: block;">
+                            <p id="likeButton" style="">
+                                <img src="https://img.icons8.com/dusk/20/000000/facebook-like.png"/>
+                                Like: {{queryset.like.count}}
+                            </p>
+                            {%  if user.is_authenticated %}
+						{% if user in queryset.like.all %}
+                            <a class="like_btn btn-primary" data-href="{{  queryset.get_api_like_url  }}" data-like="{{queryset.like.count}}" href="{{queryset.get_like_url}}" style="max-width: 70px;height: 50px;padding-top: 4px;text-decoration: none;outline: none;	border-radius: 30px;padding: 7px;margin: 10px;">
+                                {{queryset.like.count}} Like
+                            </a>
+                            {% else %}
+                            <a class="like_btn btn-primary" data-href="{{  queryset.get_api_like_url  }}" data-like="{{queryset.like.count}}" href="{{queryset.get_like_url}}" style="max-width: 70px;height: 50px;padding-top: 4px;text-decoration: none;outline: none;	border-radius: 30px;padding: 7px;margin: 10px;">
+                                {{queryset.like.count}} Like
+                            </a>
+                            {% endif %}
+
+
+						
+						{% if request.user in queryset.save_post.all %}
+                            <a class=" save_btn btn-primary" data-hrefs="{{  queryset.get_api_save_url }}" data-save="{{queryset.save_post.count}}" href="" style="width: 70px;height: 30px;padding-top: 4px;text-decoration: none;outline: none;	border-radius: 30px;padding: 7px; margin: 10px;position: relative;">
+                                Unsaved
+                            </a>
+                        </div>
+                        {% else %}
+                        <a class=" save_btn btn-primary" data-hrefs="{{  queryset.get_api_save_url }}" data-save="{{queryset.save_post.count}}" href="" style="width: 70px;height: 30px;padding-top: 4px;text-decoration: none;outline: none;	border-radius: 30px;padding: 7px; margin: 10px;position: relative;">
+                            Save
+                        </a>
+                    </hr>
+                </div>
+                {% endif %}
+						{% else %}
+                <a class="btn btn-primary " href="/user/account/login" role="button" style="height: auto;margin: auto;border-radius: 30px;width: 95px">
+                    Login
+                </a>
+                {% endif %}
+                <hr style="border: 1px solid #eeeff2;width: 100%;">
+                    <a class="btn btn-success rounded-pill" download="" href="{{queryset.Images.url}}" style="display: block;max-width: 310px;margin: 10px 0 0;width: 100%">
+                        Free Download
+                    </a>
+                </hr>
+            </div>
+            <div class="grid-container" style="padding-top: 50px;">
+                {% for i in data %}
+                <div class="flex_grid sidebar_thumbs" style="margin:-4px -6px 15px -5px;">
+                    <div class="item" data-h="426" data-w="640" style="width: 135px; height: 90px; display: block;">
+                        <a href="/Photo/{{i.user}}/{{i.slug}}">
+                            <img alt="" src="{{i.Images.url}}" title="Beach, Beverage, Caribbean">
+                            </img>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </center>
+    </div>
+</div>
+{% endblock %}
+
+		{% block js %}
+<script type="text/javascript">
+    $('#follow').click(function (e) {
+
+				e.preventDefault();
+				var href=this.href;
+
+				$.ajax({
+					url:href,
+					dataType: 'json',
+
+					success:function(response){
+						if(response["following"]){
+							$('#follow').html('<i class="check">✓</i> Follow')
+						}
+						else{
+							$('#follow').html('Follow')
+						}
+					}
+				})
+			})
+</script>
+<script type="text/javascript">
+    let likeButton=document.getElementById('likeButton');
+			function updateText(btn,newCount,verb){
+				btn.text(newCount+' '+verb)
+			}
+
+			$(".like_btn").click(function(e){
+				e.preventDefault();
+
+				var this_=$(this);
+				var likeUrl= this_.attr("data-href");
+				var likeCount= parseInt(this_.attr('data-like'));
+				$.ajax({
+					url:likeUrl,
+					method:'GET',
+					data:{},
+					success:function(data){
+						e.preventDefault();
+						console.log(data)
+						
+						if(data.liked==false){
+					//add the like
+					 updateText(this_, data.likescount, "Like")
+					 likeButton.innerHTML="<img src='https://img.icons8.com/dusk/20/000000/facebook-like.png'/> Like :"+ data.likescount;
+				}
+				else{
+					//remove the one like
+					updateText(this_, data.likescount, "Like")
+					likeButton.innerHTML="<img src='https://img.icons8.com/dusk/20/000000/facebook-like.png'/> Like :"+data.likescount;
+				}
+			},error:function(error){
+				console.log(error);
+				console.log('error');
+
+			}
+		})
+			
+			})
+</script>
+<script type="text/javascript">
+    function updateTextsave(btn,verb){
+				btn.text(' '+verb)
+			}
+			$(".save_btn").click(function(e){
+				e.preventDefault();
+				var this_=$(this);
+				var saveUrl= this_.attr("data-hrefs");
+				var saveCount= parseInt(this_.attr('data-save'));
+				$.ajax({
+					url:saveUrl,
+					method:'GET',
+					data:{},
+					success:function(data){
+						e.preventDefault();
+						console.log(data)
+						if(data.saved==true){
+						//add the save
+					 updateTextsave(this_,"Unsaved")	
+				}
+				else{
+					//remove the one save
+					updateTextsave(this_, "Save")
+					
+				}
+			},error:function(error){
+				console.log(error);
+				console.log('error');
+			}
+		})
+			
+	})
+</script>
+{% endblock  %}

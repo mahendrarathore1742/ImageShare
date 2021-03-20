@@ -1,0 +1,40 @@
+{% extends 'Allimport.html' %}
+
+
+{% block body %}
+<section>
+    <div class="jumbotron jumbotron-fluid  illustrations  " >
+      <div class="container header ">
+       <center> <h2 class="display">Stunning free images & royalty free stock</h2>
+        <p class="lead">Over 1.8 million+ high quality stock images and videos shared by our talented community.</p>
+          <form method="get" action='{% url "Search" %}'>
+        <input type="text" name="query" class="Search" placeholder="Search Image" />
+   		 </form>
+      </center>
+    </div>
+  </div>
+</section>
+
+
+ 
+
+<div class="container">
+                <div class="row">
+                {% for i in tophastag %}
+                <div class="col-sm">
+                 <div class="card m-2" style="width: auto;">
+             
+              <div class="card-body">
+
+                <h5 class="card-title">#{{i}}</h5>
+                
+                <a href="{% url 'detail_view' i.slug %}" class="btn btn-primary">Go somewhere</a>
+              </div>
+              </div>
+                </div>
+                    {% endfor %}
+                      </div>
+                </div>
+           
+
+{% endblock %}

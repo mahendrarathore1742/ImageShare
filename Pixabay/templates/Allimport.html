@@ -1,0 +1,105 @@
+<html lang="en">
+<head> 
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  {% load static %}
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'homefeed.css' %}">
+
+  {% block head %} {% endblock %}
+  {% block title %} {% endblock %}
+</head>
+
+<body>
+   <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+    <a class="navbar-brand" href="/"><h4>ImageShow</h4></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="/photo">Photos </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/PopularHashtags">Popular Hashtags</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/Trending">Trending</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/Mostlikephoto">Mostlikephoto</a>
+        </li>
+       
+      </ul>
+      <ul class="navbar-nav">
+         {%  if not user.is_authenticated %}
+        <li class="nav-item">
+        <a class="nav-link " href="/user/account">Login | Join</a>
+      </li>
+
+      {% else %}
+
+        <li class="nav-item" style="">
+        <a href="/user/account/Myprofile/">
+        <img src="{{user.userprofile.Profileimage.url}}" style="border-radius: 50%;width: 40px;height: 40px;"></a> 
+      </li>
+
+      {% endif %}
+      <li class="nav-item">
+        <button class="btn Upload" > <img src="https://img.icons8.com/fluent/16/000000/upload--v16.png"/><a href="/user/account/upload/" style="color: #fafafa;text-decoration: none;">Upload</a></button>   
+      </li>
+      </ul>
+    </div>
+  </nav>
+<section>
+{% block body %} {% endblock %}
+</section>
+<div class="More">
+ <center><a href="/photo"><button type="button" class="btn btn-raised btn-success Descover">Descover More</button></a> </center> 
+</div>
+
+<div class="description">
+  <h3>Free images and videos you can use anywhere</h3>
+</div>
+
+<div style="text-align:center;max-width:1024px;margin:auto;padding:30px 20px 0">
+ImageShow is a vibrant community of creatives, sharing copyright free images and videos. All contents are released under the ImageShow License, which makes them safe to use without asking for permission or giving credit to the artist - even for commercial purposes.</div>
+
+
+<div class="description">
+
+
+<div style="padding-bottom: 150px;"></div>
+{%  if not user.is_authenticated %}
+
+  <h3>Join ImageShow</h3>
+</div>
+
+<div style="text-align:center;max-width:1024px;margin:auto;padding:30px 20px 0">
+Download royalty free photos and videos and share your own pictures as public domain with people all over the world.</div>
+
+
+
+<div class="More">
+ <center><a href="/user/account"><button type="button" class="btn btn-raised btn-success Descover">Sign up it's Free</button></a> </center> 
+
+</div>
+{% endif %}
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+
+
+</body>
+  {% block js %} {% endblock %}
+</html>

@@ -1,0 +1,16 @@
+{% extends "myaccountdata/importable.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="d-flex flex-row flex-wrap ">
+        {% for i in alltagsdata %}
+        <a class="rig-cell" href="/Photo/{{ i.user }}/{{ i.slug }}">
+            <div class="d-flex flex-column">
+                <img class="img-fluid" src="{{ i.Images.url }}">
+                </img>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

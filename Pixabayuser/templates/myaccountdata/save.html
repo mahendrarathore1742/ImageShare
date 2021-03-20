@@ -1,0 +1,26 @@
+{% extends "myaccountdata/importable.html" %}
+{% block body %}
+
+
+{% if not queryset %}
+<center>
+    <div class="start_text">
+        <h1 class="staring_text">
+            Wow, that's a very clean portfolio!
+        </h1>
+    </div>
+</center>
+{% endif %}
+<div class="container">
+    <div class="d-flex flex-row flex-wrap ">
+        {% for i in queryset %}
+        <a class="rig-cell" href="/Photo/{{ i.user }}/{{ i.slug }}">
+            <div class="d-flex flex-column">
+                <img class="img-fluid" src="{{ i.Images.url }}">
+                </img>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

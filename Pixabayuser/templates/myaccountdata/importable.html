@@ -1,0 +1,141 @@
+<html lang="en">
+    <head>
+        {% load widget_tweaks %}
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+            <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+                {% load static %}
+                <link href="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/css/uikit.min.css" rel="stylesheet"/>
+                <link href="{% static 'tagsinput.css' %}" rel="stylesheet"/>
+                <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit.min.js">
+                </script>
+                <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit-icons.min.js">
+                </script>
+                <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+                </script>
+                {% block head %} {% endblock %}
+            
+                <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+                    <link href="{% static 'account.css' %}" rel="stylesheet" type="text/css">
+                        <link href="{% static 'item.css' %}" rel="stylesheet" type="text/css">
+                            <title>
+                                {% block title %}  {% endblock %}
+                            </title>
+                            <style>
+                                .col-6 { 
+                                 -ms-flex: 0 0 50%;
+                                  max-width: 100%;
+                              }
+                            </style>
+                        </link>
+                    </link>
+                </link>
+            </meta>
+        </meta>
+    </head>
+    <body style="background-color: #fafafa;">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-white rounded " style="background-color: #fafafa;">
+            <a class="navbar-brand" href="/">
+                <h4>
+                    ImageShow
+                </h4>
+            </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon">
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item ">
+                        <form action='{% url "Search" %}' method="get">
+                            <div class="input-group mb-2 ">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <img src="https://img.icons8.com/ios/20/000000/search--v1.png"/>
+                                    </span>
+                                </div>
+                                <input class="form-control Searchitem" name="query" placeholder="Search" type="text">
+                                </input>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {%  if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link " href="/user/account">
+                            Login | Join
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item" style="">
+                        <a href="/user/account/Myprofile/">
+                            <img src="{{user.userprofile.Profileimage.url}}" style="position: relative;top: -4px;width: 32px;  height: 32px; border-radius: 32px;margin: 10px;">
+                            </img>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <button class="btn Upload" style="  border-radius: 20px;background-color: #4caf50;outline: none;">
+                            <a href="/user/account/upload/" style="color: #fafafa;margin: -1px 20px 0 15px; padding: 6px 27px!important;text-shadow: none;text-decoration: none; font-size: 14px;font-weight: 400;">
+                                Upload
+                            </a>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div style="padding:1px;">
+        </div>
+        {%  if  user.is_authenticated %}
+        <div class="buttomnev">
+            <ul class="nav bg-light pt-3 pl-5">
+                <li class="nav-item">
+                    <a class="nav-link account_link" href="/user/account/myimages/">
+                        My images
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link account_link" href="/user/account/upload/">
+                        Upload
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link account_link" href="/user/account/following/">
+                        Following
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link account_link" href="/user/account/settings/">
+                        Settings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link account_link" href="/user/account/save/">
+                        Save
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            </hr>
+        </div>
+        {% endif %}
+
+
+{% block body %} 
+{% endblock %}
+    </body>
+    <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js">
+    </script>
+    <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+    </script>
+    <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+        instead of <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+    </script> 
+    {% block js %}
+{% endblock %}
+    <script src="{% static 'tagsinput.js' %}"></script>
+</html>

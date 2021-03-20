@@ -1,0 +1,36 @@
+{% extends 'Allimport.html' %}
+
+
+
+{% block body %}
+<section>
+    <div class="jumbotron jumbotron-fluid  vectors  " >
+      <div class="container header ">
+       <center> <h2 class="display">Stunning free images & royalty free stock</h2>
+        <p class="lead">Over 1.8 million+ high quality stock images and videos shared by our talented community.</p>
+          <form method="get" action='{% url "Search" %}'>
+        <input type="text" name="query" class="Search" placeholder="Search Image" >
+    </form>
+      </center>
+    </div>
+  </div>
+</section>
+
+
+<div class="container">
+                <div class="d-flex flex-row flex-wrap ">
+                    {% for i in Trending_image %}
+                   
+                    <a class="rig-cell" href="/Photo/{{ i.user }}/{{ i.slug }}">
+                        <div class="d-flex flex-column m-2">
+                            <img class="img-fluid" src="{{ i.Images.url }}">
+                            </img>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div> 
+
+
+
+{% endblock %}

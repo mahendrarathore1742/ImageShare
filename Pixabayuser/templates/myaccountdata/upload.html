@@ -1,0 +1,59 @@
+{% extends "myaccountdata/importable.html" %}
+{% block body %}
+{% load crispy_forms_tags %}
+<div class="row" style="width: auto">
+    <div class="col-6 m-4 flex-column">
+        <h5>
+            Upload files
+        </h5>
+        <br>
+            <p style="font-size: 14px;line-height: 1.6;">
+                JPG, PNG, PSD, AI, and SVG images up to 40 MB with at least 3000 pixels along one side. Image Quality Guidelines...
+                <br>
+                    <br>
+                        <br>
+                            Remaining uploads in this period: 10
+        Learn more ...
+                        </br>
+                    </br>
+                </br>
+            </p>
+        </br>
+   
+<form enctype="multipart/form-data" method="post">
+    {{form.Title|as_crispy_field}}
+                {{ form.Images|as_crispy_field }} 
+                {{form.videofile}}
+    <div class="form-group" id="div_id_tags">
+        <label class=" requiredField" for="id_tags">
+            Tags
+            <span class="asteriskField">
+                *
+            </span>
+        </label>
+        <div class="">
+            <input class="tagwidget form-control" data-role="tagsinput" height="auto" id="id_tags" name="tags" required="enter some tag" type="text">
+            </input>
+        </div>
+    </div>
+    {% csrf_token %}
+    <button class="btn btn-raised btn-success Descover" type="submit">
+        Upload
+    </button>
+</form>
+ </div>
+ 
+
+<div class="col-4 m-4 ">
+    <h2 style="font-size: 18px;font-weight: 400;">
+        Important tags we need more images for
+    </h2>
+    {% for mt in alltags%}
+    <a class="badge badge-dark" href="{% url 'detail_view' mt.slug %}">
+        #{{mt}}
+    </a>
+    {% endfor %}
+</div>
+</div>
+
+{% endblock %}

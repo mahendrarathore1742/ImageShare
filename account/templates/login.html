@@ -1,0 +1,60 @@
+{% extends "importaccount.html" %}
+
+ {% block body %}
+
+
+ {% for message in messages %}
+<div class="alert alert-light alert-dismissible fade show" role="alert">
+    <strong>
+        {{ message }}
+    </strong>
+    <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+        <span aria-hidden="true">
+            ×
+        </span>
+    </button>
+</div>
+{% endfor %}
+<div style="padding-top: 30px;">
+    <div class="card" style="width: 32rem; margin: 0 auto; float: none; ">
+        <div class="navbar_account">
+            <a href="/user/account">
+                Sign up
+            </a>
+            <a href="/user/account/login">
+                Login
+            </a>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    Email
+                </div>
+           
+        
+<input aria-describedby="email" class="form-control logindata" id="email" name="email" placeholder="Enter email" required="" type="email">
+</input>
+<div class="form-group">
+    <label for="exampleInputPassword1">
+        Password
+    </label>
+    <input class="form-control logindata" id="exampleInputPassword1" name="password" placeholder="Password" required="" type="password">
+    </input>
+</div>
+<input name="next" type="hidden" value="{{request.GET.next}}"/>
+    <center>
+        <button class="btn btn-primary" type="submit">
+            Login
+        </button>
+    </center>
+    <a href="/accounts/password/reset/">
+        Password Reset
+    </a>
+
+ </form>
+
+</div>
+    </div>
+</div>
+{% endblock %}

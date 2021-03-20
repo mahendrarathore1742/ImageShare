@@ -1,0 +1,113 @@
+{% extends "myaccountdata/importable.html" %}
+{% block body %}
+<div class="jumbotron jumbotron-fluid bg-dark text-white ">
+    <div class="container">
+        <center>
+            <h1 class="text-white">
+                <b>
+                    {{Userdata.username}}
+                </b>
+            </h1>
+            <div class="Profileimages">
+                <img alt="Profileimage" src="{{Userdata.userprofile.Profileimage.url}}" style="width: 140px;height: 140px; border-radius: 50%;padding: 15px;">
+                </img>
+            </div>
+            <p class="lead">
+                <div id="stats" style="max-height:40px;overflow:hidden;padding:0 15px">
+                    <span title="Images">
+                        <img src="https://img.icons8.com/color/20/000000/image.png"/>
+                    </span>
+                
+{{Imagecount}}
+<span title="Likes">
+    <img src="https://img.icons8.com/cotton/20/000000/facebook-like--v2.png"/>
+    {{queryset}}
+</span>
+<span class="hide-lg" title="Followers">
+    <img src="https://img.icons8.com/offices/20/000000/add-user-male.png"/>
+    {{following_obj}}
+</span>
+</div></p>
+<div style="padding-top: 10px;">
+    {% if  Userdata.userprofile.FirstName != null and  Userdata.userprofile.FirstName != null %}
+    <p>
+        {{Userdata.userprofile.FirstName}} {{Userdata.userprofile.LastName}}
+    </p>
+    {% endif %}
+    <i>
+        <h5 style="color: white;">
+            {{Userdata.userprofile.Aboutme}}
+        </h5>
+    </i>
+</div>
+<div style="padding-top: 10px;">
+    {%  if  user.is_authenticated %}
+                {% if Data and not request.user == Userdata.username %}
+    <a class="btn btn-primary " href="{% url 'follow' Userdata.username %}" id="follow" role="button" style="height: auto;margin: 10px;border-radius: 30px;width: 95px;">
+        Unfollow
+    </a>
+    {% elif request.user.username ==  Userdata.username %}
+    <a class="btn btn-primary " href="/user/account/settings/" role="button" style="height: auto;margin: 5px;border-radius: 30px;width: 95px">
+        Edit
+    </a>
+    {% else %}
+    <a class="btn btn-primary " href="{% url 'follow' Userdata.username %}" id="follow" role="button" style="height: auto;margin: 5px;border-radius: 30px;width: 95px">
+        Follow
+    </a>
+    {% endif %}
+                    {% else %}
+    <a class="btn btn-primary " href="/user/account/login" role="button" style="height: auto;margin: 5px;border-radius: 30px;width: 95px">
+        Login
+    </a>
+    {% endif %}
+</div>
+{% if  not data  %}
+<div class="start_text">
+    <h1 class="staring_text">
+        Wow, that's  is a very clean portfolio!
+    </h1>
+    <p class="pg">
+        No Images
+    </p>
+</div>
+{% endif %}
+</center></div></div>
+
+<div class="container">
+    <div class="d-flex flex-row flex-wrap ">
+        {% for i in data %}
+        <a class="rig-cell" href="/Photo/{{ i.user }}/{{ i.slug }}">
+            <div class="d-flex flex-column">
+                <img class="img-fluid" src="{{ i.Images.url }}">
+                </img>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}   
+
+
+{% block js %}
+<script type="text/javascript">
+    $('#follow').click(function (e) {
+
+        e.preventDefault();
+        var href=this.href;
+    
+        $.ajax({
+            url:href,
+            dataType: 'json',
+
+            success:function(response){
+                if(response["following"]){
+                    $('#follow').html('Unfollow')
+                }
+                else{
+                    $('#follow').html('Follow')
+                }
+            }
+        })
+    })
+</script>
+{% endblock  %}

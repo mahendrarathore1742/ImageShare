@@ -1,0 +1,110 @@
+.nav-item {
+    margin: 10px;
+}
+.headerimg {
+    background-image: url('bgimages/bicycle.jpg');
+    height: 100%;
+    color: black;
+    object-fit: cover;
+}
+* {
+    box-sizing: border-box;
+}
+.header {
+    margin-top: 50px;
+}
+.Search {
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    text-align: center;
+    width: 500px;
+    height: 60px;
+}
+.Search:hover {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    outline: none;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+@media (max-width: 900px) {
+    .Search {
+        font-size: 20px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        text-align: center;
+        width: auto;
+        height: 30px;
+    }
+}
+.More {
+    padding-top: 20px;
+}
+.Descover {
+    border-radius: 30px;
+    margin: 30px;
+    padding: 12px 60px;
+    border: none;
+    outline: none;
+}
+.Descover:hover {
+    border: none;
+    outline: none;
+}
+.description {
+    font-size: 30px;
+    color: #515457;
+    padding-top: 70px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 400;
+    margin: 0 0 12px;
+}
+.illustrations {
+    background-image: url("bgimages/illustrations.jpg");
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    height: 80%;
+}
+.vectors {
+    background-image: url("bgimages/vectors.png");
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    height: 80%;
+}
+.videos {
+    background-image: url("bgimages/nature.jpg");
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    height: 80%;
+}
+.Upload {
+    border-radius: 20px;
+    background-color: #4caf50;
+    color: #fafafa;
+    outline: none;
+}
+.Upload:hover {
+    border-radius: 20px;
+    background-color: #4caf50;
+    color: #fafafa;
+    outline: none;
+}
+.flex-column {
+    max-width: 260px;
+    max-height: 100%;
+}
+@media (max-width: 520px) {
+    .flex-column {
+        max-width: 100%;
+    }
+}

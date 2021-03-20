@@ -1,0 +1,30 @@
+{% extends "myaccountdata/importable.html" %}
+
+{% block body %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>
+        Message : - {{ message }}
+    </strong>
+    <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+        <span aria-hidden="true">
+            ×
+        </span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
+<div class="container">
+    <div class="d-flex flex-row flex-wrap ">
+        {% for i in allpost %}
+        <a class="rig-cell" href="/Photo/{{ i.user }}/{{ i.slug }}">
+            <div class="d-flex flex-column">
+                <img class="img-fluid" src="{{ i.Images.url }}">
+                </img>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

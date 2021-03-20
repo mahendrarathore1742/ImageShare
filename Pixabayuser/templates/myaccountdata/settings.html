@@ -1,0 +1,100 @@
+{% extends "myaccountdata/importable.html" %}
+ {% block body %}
+ {% load crispy_forms_tags %}
+ {% load static %}
+ {% block head %}
+ {% endblock %}
+ {% for message in messages %}
+<div class="alert alert-light alert-dismissible fade show" role="alert">
+    <strong>
+        {{ message }}
+    </strong>
+    <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+        <span aria-hidden="true">
+            ×
+        </span>
+    </button>
+</div>
+{% endfor %}
+<div class="container">
+    <div class="card" style="width: auto;">
+        <div class="card-body">
+            <h5 class="card-title">
+                Profile
+            </h5>
+            <form enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-8 mb-0">
+                        <img alt="Profileimage" src="{{user.userprofile.Profileimage.url}}" style="width: 150px;height: 150px; border-radius: 100%;padding: 20px;"/>
+                            <div class="file-input">
+                                <input accept="image/*" id="id_Profileimage" name="Profileimage" type="file"/>
+                                    <span class="button">
+                                        Choose
+                                    </span>
+                                    <span class="label" data-js-label="">
+                                        No file selected
+                                    </span>
+                                
+        </div></div>
+               <div class="form-group col-md-6 mb-0">
+    {{ form1.username|as_crispy_field }}
+</div>
+<div class="form-group col-md-6 mb-0">
+    {{ form1.email|as_crispy_field }}
+</div>
+<div class="form-group col-md-6 mb-0">
+    {{ form.GENDER|as_crispy_field }}
+</div>
+<div class="form-group col-md-6 mb-0">
+    {{ form.FirstName|as_crispy_field }}
+</div>
+
+<div class="mr-2">
+{{ form.LastName|as_crispy_field }}
+</div>
+ {{ form.City|as_crispy_field }}
+
+<div class="form-row">
+    <div class="form-group col-md-6 mb-0">
+        {{ form.Country|as_crispy_field }}
+    </div>
+    <div class="form-group col-md-8 mb-0">
+        {{ form.Aboutme|as_crispy_field }}
+    </div>
+
+</div>
+
+</div>
+<button class="btn btn-primary" type="submit">
+    Save
+</button>
+<a class="btn-primary btn" href="/user/account/logout/" type="button">
+    Log out
+</a>
+</form></div></div></div>
+{% endblock %}  
+
+ 		{% block js %}
+<script>
+    var inputs = document.querySelectorAll('.file-input')
+
+ 			for (var i = 0, len = inputs.length; i < len; i++) {
+ 				customInput(inputs[i])
+ 			}
+
+ 			function customInput (el) {
+ 				const fileInput = el.querySelector('[type="file"]')
+ 				const label = el.querySelector('[data-js-label]')
+
+ 				fileInput.onchange =
+ 				fileInput.onmouseout = function () {
+ 					if (!fileInput.value) return
+
+ 						var value = fileInput.value.replace(/^.*[\\\/]/, '')
+ 					el.className += ' -chosen'
+ 					label.innerText = value
+ 				}
+ 			}
+</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "myaccountdata/importable.html" %}
+{% block title  %} My Images {% endblock %}
+
+{% block body %} 
+   {% for obj in object_list %}
+<li>
+    {{obj.slug}}
+</li>
+{% endfor %}
+{% if  not data  %}
+<center>
+    <div class="start_text">
+        <h1 class="staring_text">
+            Wow, that's a very clean portfolio!
+        </h1>
+        <p class="pg">
+            Upload 10 images to get rid of all ads on ImageShow.
+        </p>
+        <a class="btn btn-raised btn-success" href="/user/account/upload/">
+            Upload
+        </a>
+    </div>
+</center>
+{% endif %}
+<div class="container">
+    <div class="d-flex flex-row flex-wrap m-2">
+        {% for i in data %}
+        <a class="rig-cell" href="/Photo/{{ i.user }}/{{ i.slug }}">
+            <div class="d-flex flex-column">
+                <img class="img-fluid" src="{{ i.Images.url }}">
+                </img>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

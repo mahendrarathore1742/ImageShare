@@ -1,0 +1,162 @@
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+            {% load static %}
+            <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+                <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet">
+                    <link crossorigin="anonymous" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" rel="stylesheet">
+                        <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+                            <link href="{% static 'homefeed.css' %}" rel="stylesheet" type="text/css">
+                                <script>
+                                </script>
+                            </link>
+                        </link>
+                    </link>
+                </link>
+            </meta>
+        </meta>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+            <a class="navbar-brand" href="/">
+                <h4>
+                    ImageShow
+                </h4>
+            </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon">
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/photo">
+                            Photos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/PopularHashtags">
+                            Popular Hashtags
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Trending">
+                            Trending
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Mostlikephoto">
+                            Mostlikephoto
+                        </a>
+                    </li>
+                    </ul>
+                <ul class="navbar-nav">
+                    {%  if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link " href="/user/account">
+                            Login | Join
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item" style="">
+                        <a href="/user/account/Myprofile/">
+                            <img src="{{user.userprofile.Profileimage.url}}" style="border-radius: 50%;width: 40px;height: 40px;">
+                            </img>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <button class="btn Upload">
+                            <img src="https://img.icons8.com/fluent/16/000000/upload--v16.png"/>
+                            <a href="/user/account/upload/" style="color: #fafafa;text-decoration: none;">
+                                Upload
+                            </a>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <section>
+            <div class="jumbotron jumbotron-fluid headerimg">
+                <div class="container header ">
+                    <center>
+                        <h2 class="display">
+                            Stunning free images & royalty free stock
+                        </h2>
+                        <p class="lead">
+                            Over 1.8 million+ high quality stock images and videos shared by our talented community.
+                        </p>
+                          <form method="get" action='{% url "Search" %}'>
+                        <input class="Search" name="query" placeholder="Search Image" type="text">
+                        </input>
+                    </form>
+                    </center>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="d-flex flex-row flex-wrap ">
+                    {% for i in Alldata %}
+                    <a class="rig-cell" href="/Photo/{{ i.user }}/{{ i.slug }}">
+                        <div class="d-flex flex-column m-1">
+                            <img class="img-fluid" src="{{ i.Images.url }}">
+                            </img>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <div class="More">
+            <center>
+                <a href="/photo">
+                    <button class="btn btn-raised btn-success Descover" type="button">
+                        Descover More
+                    </button>
+                </a>
+            </center>
+        </div>
+        <div class="description">
+            <h3>
+                Free images and videos you can use anywhere
+            </h3>
+        </div>
+        <div style="text-align:center;max-width:1024px;margin:auto;padding:30px 20px 0">
+            ImageShow is a vibrant community of creatives, sharing copyright free images and videos. All contents are released under the ImageShow License, which makes them safe to use without asking for permission or giving credit to the artist - even for commercial purposes.
+        </div>
+        <div style="padding-bottom: 150px;">
+        </div>
+        {%  if not user.is_authenticated %}
+        <div class="description">
+            <h3>
+                Join ImageShow
+            </h3>
+        </div>
+        <div style="text-align:center;max-width:1024px;margin:auto;padding:30px 20px 0">
+            Download royalty free photos and videos and share your own pictures as public domain with people all over the world.
+        </div>
+        <div class="More">
+            <center>
+                <a href="/user/account">
+                    <button class="btn btn-raised btn-success Descover" type="button">
+                        Sign up it's Free
+                    </button>
+                </a>
+            </center>
+        </div>
+        {% endif %}
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+        </script>
+        <script crossorigin="anonymous" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js">
+        </script>
+        <script crossorigin="anonymous" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js">
+        </script>
+        <script>
+            $(document).ready(function() { $('body').bootstrapMaterialDesign(); });
+        </script>
+    </body>
+</html>

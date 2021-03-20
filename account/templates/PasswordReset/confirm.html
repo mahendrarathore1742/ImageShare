@@ -1,0 +1,22 @@
+{% extends "importaccount.html" %}
+ {% load static %}
+ {% load crispy_forms_tags %}
+ {% block body %}
+<div style="padding-top: 30px;">
+    <div class="card" style="width: 32rem;  margin: 0 auto; float: none; ">
+        <div class="card-body">
+            <form method="post" style="">
+                {% csrf_token %}
+                <div class="form-group ">
+                    {{ form|crispy }}
+                </div>
+                <center>
+                    <button class="btn btn-primary" type="submit">
+                        Submit
+                    </button>
+                </center>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
